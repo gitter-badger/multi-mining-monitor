@@ -1,0 +1,19 @@
+{
+  "name": "multi-mining-monitor",
+  "version": "0.0.1",
+  "author": "OpenSourceCryptoTools <OpenSourceCryptoTools@protonmail.com>",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/OpenSourceCryptoTools/multi-mining-monitor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OpenSourceCryptoTools/multi-mining-monitor.git"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/OpenSourceCryptoTools/multi-mining-monitor/issues"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
