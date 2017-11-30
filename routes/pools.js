@@ -16,30 +16,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with multi-mining-monitor.  If not, see <http://www.gnu.org/licenses/>.
 */
+const poolClientMap = require('../lib/pool-clients');
 const router = require('express').Router();
-const supportedPools = {
-	Dwarfpool: {
-		coins: [ 'ETH', 'XMR' ]
-	},
-	Ethermine: {
-		coins: ['ETH']
-	},
-	Ethpool: {
-		coins: ['ETH']
-	},
-	MineXMR: {
-		coins: ['XMR']
-	},
-	NanoPool: {
-		coins: [ 'ETH', 'XMR' ]
-	}
-};
 
 /*
  * Route parameters
  */
 router.param('coin', (req, res, next, coin) => {
-	if (!supportedPools[req.params.pool].coins.includes(coin)) {
+	if (!req.poolClient.getSupportedCoins().includes(coin)) {
 		res.status(404).end();
 	} else {
 		next();
@@ -47,9 +31,11 @@ router.param('coin', (req, res, next, coin) => {
 });
 
 router.param('pool', (req, res, next, pool) => {
-	if (!supportedPools.hasOwnProperty(pool)) {
+	if (!poolClientMap.hasOwnProperty(pool)) {
 		res.status(404).end();
 	} else {
+		req.poolClient = poolClientMap[pool];
+
 		next();
 	}
 });
@@ -59,12 +45,12 @@ router.param('pool', (req, res, next, pool) => {
  */
 //Get list of available pools
 router.get('/', (req, res) => {
-	res.json({pools: Object.keys(supportedPools)});
+	res.json({pools: Object.keys(poolClientMap)});
 });
 
 //Get list of available coins for pool
 router.get('/:pool', (req, res) => {
-	res.json({coins: supportedPools[req.params.pool].coins});
+	res.json({coins: req.poolClient.getSupportedCoins()});
 });
 
 //Get stats for coin for pool
