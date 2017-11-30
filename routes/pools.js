@@ -18,8 +18,17 @@ along with multi-mining-monitor.  If not, see <http://www.gnu.org/licenses/>.
 */
 const router = require('express').Router();
 const supportedPools = {
+	Dwarfpool: {
+		coins: [ 'ETH', 'XMR' ]
+	},
 	Ethermine: {
 		coins: ['ETH']
+	},
+	Ethpool: {
+		coins: ['ETH']
+	},
+	MineXMR: {
+		coins: ['XMR']
 	},
 	NanoPool: {
 		coins: [ 'ETH', 'XMR' ]
@@ -29,7 +38,7 @@ const supportedPools = {
 /*
  * Route parameters
  */
-router.param('coin', function(req, res, next, coin) {
+router.param('coin', (req, res, next, coin) => {
 	if (!supportedPools[req.params.pool].coins.includes(coin)) {
 		res.status(404).end();
 	} else {
@@ -37,7 +46,7 @@ router.param('coin', function(req, res, next, coin) {
 	}
 });
 
-router.param('pool', function(req, res, next, pool) {
+router.param('pool', (req, res, next, pool) => {
 	if (!supportedPools.hasOwnProperty(pool)) {
 		res.status(404).end();
 	} else {
