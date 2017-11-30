@@ -13,7 +13,11 @@
   "bugs": {
     "url": "https://github.com/OpenSourceCryptoTools/multi-mining-monitor/issues"
   },
+  "scripts": {
+    "start": "node ./bin/server"
+  },
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "underscore": "^1.8.3"
   }
 }
